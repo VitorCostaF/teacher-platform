@@ -7,6 +7,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Map;
 
 @RestControllerAdvice
@@ -72,6 +74,24 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of(
             "error", "CONFLICT",
             "message", "Registro duplicado ou violação de constraint"
+        ));
+    }
+
+    @ExceptionHandler(IaRateLimitException.class)
+    public ResponseEntity<Map<String, Object>> handleIaRateLimit(IaRateLimitException ex) {
+        long retryAfter = Instant.now().truncatedTo(ChronoUnit.HOURS).plusSeconds(3600).getEpochSecond();
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(Map.of(
+            "error", "IA_RATE_LIMIT",
+            "message", ex.getMessage(),
+            "retryAfter", retryAfter
+        ));
+    }
+
+    @ExceptionHandler(IaIndisponibilException.class)
+    public ResponseEntity<Map<String, String>> handleIaIndisponivel(IaIndisponibilException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(Map.of(
+            "error", "IA_INDISPONIVEL",
+            "message", ex.getMessage()
         ));
     }
 }

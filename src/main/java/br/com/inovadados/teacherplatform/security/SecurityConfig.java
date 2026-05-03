@@ -30,6 +30,8 @@ public class SecurityConfig {
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/professor/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
                 .requestMatchers("/admin/**").hasAnyRole("ADMIN", "COORDENADOR")
+                .requestMatchers("/ia/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
+                .requestMatchers("/upload/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
