@@ -5,6 +5,7 @@ import { authService } from '../services/auth.service'
 import { setAuth } from '@/store/authStore'
 import { useToast } from '@/components/feedback/ToastProvider'
 import { ROTAS_POR_PERFIL } from '../utils/profileRoutes'
+import { useProactiveRefresh } from './useProactiveRefresh'
 import type { LoginFormData } from '../schemas/login.schema'
 
 export function useLogin() {
@@ -14,6 +15,7 @@ export function useLogin() {
   const [unlockTime, setUnlockTime] = useState<Date | null>(null)
   const navigate = useNavigate()
   const { addToast } = useToast()
+  const { scheduleRefresh } = useProactiveRefresh()
 
   async function login(data: LoginFormData) {
     setIsLoading(true)
@@ -23,7 +25,8 @@ export function useLogin() {
 
     try {
       const response = await authService.login(data)
-      setAuth(response.accessToken, response.usuario)
+      setAuth(response.accessToken, response.usuario, response.expiresIn)
+      scheduleRefresh(response.expiresIn)
 
       const redirectUrl = sessionStorage.getItem('redirect_url')
       if (redirectUrl) {

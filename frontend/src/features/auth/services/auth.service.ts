@@ -25,4 +25,11 @@ export interface LoginResponse {
 export const authService = {
   login: (data: LoginDto) =>
     apiClient.post<LoginResponse>('/auth/login', data).then((r) => r.data),
+
+  refresh: () =>
+    apiClient
+      .post<{ accessToken: string; expiresIn: number }>('/auth/refresh')
+      .then((r) => r.data),
+
+  logout: () => apiClient.post('/auth/logout').then((r) => r.data),
 }
