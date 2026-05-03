@@ -1,5 +1,6 @@
 package br.com.inovadados.teacherplatform.exception;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -63,6 +64,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of(
             "error", "ACESSO_NEGADO",
             "message", ex.getMessage()
+        ));
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Map<String, String>> handleDataIntegrity(DataIntegrityViolationException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of(
+            "error", "CONFLICT",
+            "message", "Registro duplicado ou violação de constraint"
         ));
     }
 }
