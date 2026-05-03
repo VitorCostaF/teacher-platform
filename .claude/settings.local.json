@@ -21,7 +21,12 @@
       "Bash(Get-ChildItem -Path \"F:\\\\Docs\\\\Profissional\\\\Inova\\\\Desenvolvimento\\\\Projetos\\\\Teacher Platform\" -Recurse -Directory)",
       "Bash(Select-Object -ExpandProperty FullName)",
       "Bash(./mvnw compile *)",
-      "PowerShell(java *)"
+      "PowerShell(java *)",
+      "Bash(Get-ChildItem -Path \"F:\\\\Docs\\\\Profissional\\\\Inova\\\\Desenvolvimento\\\\Projetos\\\\Teacher Platform\\\\src\\\\main\\\\java\\\\br\\\\com\\\\inovadados\\\\teacherplatform\" -Recurse -Directory)",
+      "Bash(Sort-Object FullName)",
+      "Bash(mvn compile *)",
+      "Bash(java -version)",
+      "Bash(mvn -version)"
     ]
   }
 }

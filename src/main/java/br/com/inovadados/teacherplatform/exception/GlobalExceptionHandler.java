@@ -49,4 +49,20 @@ public class GlobalExceptionHandler {
             "message", ex.getMessage()
         ));
     }
+
+    @ExceptionHandler(TurmaNaoEncontradaException.class)
+    public ResponseEntity<Map<String, String>> handleTurmaNaoEncontrada(TurmaNaoEncontradaException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+            "error", "TURMA_NAO_ENCONTRADA",
+            "message", ex.getMessage()
+        ));
+    }
+
+    @ExceptionHandler(AcessoNegadoException.class)
+    public ResponseEntity<Map<String, String>> handleAcessoNegado(AcessoNegadoException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of(
+            "error", "ACESSO_NEGADO",
+            "message", ex.getMessage()
+        ));
+    }
 }

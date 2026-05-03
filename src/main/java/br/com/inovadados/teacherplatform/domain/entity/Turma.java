@@ -38,6 +38,9 @@ public class Turma {
     @Column(nullable = false, length = 100)
     private String disciplina;
 
+    @Column(name = "grade_horaria", columnDefinition = "TEXT")
+    private String gradeHoraria;
+
     @Column(name = "deletado_em")
     private OffsetDateTime deletadoEm;
 

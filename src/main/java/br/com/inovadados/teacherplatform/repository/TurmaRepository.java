@@ -10,5 +10,9 @@ public interface TurmaRepository extends JpaRepository<Turma, Long> {
 
     List<Turma> findByProfessorIdAndDeletadoEmIsNull(UUID professorId);
 
+    List<Turma> findByProfessorIdAndPeriodoLetivoIdAndDeletadoEmIsNull(UUID professorId, Long periodoLetivoId);
+
     List<Turma> findByEscolaIdAndDeletadoEmIsNull(Long escolaId);
+
+    List<Turma> findByEscolaIdAndPeriodoLetivoIdAndDeletadoEmIsNull(Long escolaId, Long periodoLetivoId);
 }
