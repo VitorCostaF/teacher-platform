@@ -1,5 +1,6 @@
-import { createContext, useCallback, useContext, useRef, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { Toast, ToastItem, ToastVariant } from './Toast'
+import { toastEmitter } from '@/lib/toastEmitter'
 
 interface ToastContextValue {
   addToast: (message: string, variant?: ToastVariant) => void
@@ -25,6 +26,22 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   const dismiss = useCallback((id: string) => {
     setToasts((prev) => prev.filter((t) => t.id !== id))
   }, [])
+
+  useEffect(() => {
+    const onError = (msg: string) => addToast(msg, 'error')
+    const onSuccess = (msg: string) => addToast(msg, 'success')
+    const onWarning = (msg: string) => addToast(msg, 'warning')
+
+    toastEmitter.on('error', onError)
+    toastEmitter.on('success', onSuccess)
+    toastEmitter.on('warning', onWarning)
+
+    return () => {
+      toastEmitter.off('error', onError)
+      toastEmitter.off('success', onSuccess)
+      toastEmitter.off('warning', onWarning)
+    }
+  }, [addToast])
 
   return (
     <ToastContext.Provider value={{ addToast }}>
