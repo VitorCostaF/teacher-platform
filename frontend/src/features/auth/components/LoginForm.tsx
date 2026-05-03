@@ -1,23 +1,22 @@
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { ErrorBanner } from '@/components/feedback/ErrorBanner'
 import { PasswordInput } from './PasswordInput'
-import { useLoginForm } from '../hooks/useLoginForm'
+import { loginSchema, LoginFormData } from '../schemas/login.schema'
+import { useLogin } from '../hooks/useLogin'
 
 export function LoginForm() {
-  const {
-    register,
-    handleSubmit,
-    errors,
-    isSubmitting,
-    errorMessage,
-    isLocked,
-    unlockTime,
-    clearError,
-  } = useLoginForm()
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    mode: 'onBlur',
+  })
 
-  const isDisabled = isSubmitting || isLocked
+  const { login, isLoading, errorMessage, isLocked, unlockTime, clearError } = useLogin()
+
+  const isDisabled = isLoading || isLocked
 
   const lockedMessage = unlockTime
     ? `Conta bloqueada até ${unlockTime.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`
@@ -30,7 +29,7 @@ export function LoginForm() {
         <h1 className="text-xl font-semibold text-gray-900">Entrar na plataforma</h1>
       </div>
 
-      <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
+      <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit(login)}>
         <div className="flex flex-col gap-1.5">
           <label htmlFor="email" className="text-sm font-medium text-gray-700">
             E-mail
@@ -69,7 +68,7 @@ export function LoginForm() {
           <ErrorBanner variant="error" message={errorMessage} onDismiss={clearError} />
         )}
 
-        <Button type="submit" className="w-full mt-2" loading={isSubmitting} disabled={isDisabled}>
+        <Button type="submit" className="w-full mt-2" loading={isLoading} disabled={isDisabled}>
           Entrar
         </Button>
       </form>
