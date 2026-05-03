@@ -94,4 +94,20 @@ public class GlobalExceptionHandler {
             "message", ex.getMessage()
         ));
     }
+
+    @ExceptionHandler(AvaliacaoNaoEncontradaException.class)
+    public ResponseEntity<Map<String, String>> handleAvaliacaoNaoEncontrada(AvaliacaoNaoEncontradaException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+            "error", "AVALIACAO_NAO_ENCONTRADA",
+            "message", ex.getMessage()
+        ));
+    }
+
+    @ExceptionHandler(OperacaoNaoPermitidaException.class)
+    public ResponseEntity<Map<String, String>> handleOperacaoNaoPermitida(OperacaoNaoPermitidaException ex) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(Map.of(
+            "error", "OPERACAO_NAO_PERMITIDA",
+            "message", ex.getMessage()
+        ));
+    }
 }

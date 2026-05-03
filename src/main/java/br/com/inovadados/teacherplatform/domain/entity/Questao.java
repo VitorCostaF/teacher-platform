@@ -40,6 +40,9 @@ public class Questao {
     @Column(name = "gabarito_dissertativo", columnDefinition = "TEXT")
     private String gabaritoDissertativo;
 
+    @Column(name = "gabarito_indice")
+    private Integer gabaritoIndice;
+
     @Column(length = 20)
     private String dificuldade;
 

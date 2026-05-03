@@ -27,7 +27,9 @@
       "Bash(mvn compile *)",
       "Bash(java -version)",
       "Bash(mvn -version)",
-      "Bash(Select-Object FullName)"
+      "Bash(Select-Object FullName)",
+      "Bash(Get-ChildItem -Recurse -Directory)",
+      "Bash(Select-Object -First 20)"
     ]
   }
 }
