@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash *)",
+      "Bash(mv \"backend-model_usuario-plan.md\"             \"01_backend-model_usuario-plan.md\")",
+      "Bash(mv \"backend-model_turmas-plan.md\"              \"02_backend-model_turmas-plan.md\")",
+      "Bash(mv \"backend-model_avaliacoes-plan.md\"          \"03_backend-model_avaliacoes-plan.md\")",
+      "Bash(mv \"backend-auth_endpoint-post-login-plan.md\"  \"04_backend-auth_endpoint-post-login-plan.md\")",
+      "Bash(mv \"backend-auth_endpoint-convite-plan.md\"     \"05_backend-auth_endpoint-convite-plan.md\")",
+      "Bash(grep -v \"^$\")",
+      "Bash(awk -F/ '{depth=NF-1; if\\(depth>5\\)next; printf \"%s%s\\\\n\", substr\\(\"    \", 1, depth*4\\), $NF}')",
+      "Bash(npm create *)",
+      "Bash(npm install *)",
+      "Bash(Remove-Item \"F:\\\\Docs\\\\Profissional\\\\Inova\\\\Desenvolvimento\\\\Projetos\\\\Teacher Platform\\\\frontend\\\\src\\\\App.tsx\" -ErrorAction SilentlyContinue)",
+      "Bash(Remove-Item \"F:\\\\Docs\\\\Profissional\\\\Inova\\\\Desenvolvimento\\\\Projetos\\\\Teacher Platform\\\\frontend\\\\src\\\\App.css\" -ErrorAction SilentlyContinue)",
+      "Bash(Remove-Item \"F:\\\\Docs\\\\Profissional\\\\Inova\\\\Desenvolvimento\\\\Projetos\\\\Teacher Platform\\\\frontend\\\\src\\\\assets\\\\react.svg\" -ErrorAction SilentlyContinue)",
+      "Bash(Write-Host \"done\")",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "WebFetch(domain:localhost)"
+    ]
+  }
+}
