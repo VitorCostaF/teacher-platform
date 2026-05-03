@@ -6,6 +6,7 @@ import { RedefinirSenhaPage } from '@/features/auth/pages/RedefinirSenhaPage'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { useAuthBroadcast } from '@/hooks/useAuthBroadcast'
 import { TurmasPage } from '@/features/turmas/pages/TurmasPage'
+import { TurmaDetalhePage } from '@/features/turmas/pages/TurmaDetalhePage'
 
 function RootLayout() {
   useAuthBroadcast()
@@ -24,6 +25,22 @@ export const router = createBrowserRouter([
       {
         path: '/professor/turmas',
         element: <ProtectedRoute><TurmasPage /></ProtectedRoute>,
+      },
+      {
+        path: '/professor/turmas/:turmaId',
+        element: <ProtectedRoute><TurmaDetalhePage /></ProtectedRoute>,
+      },
+      {
+        path: '/professor/turmas/:turmaId/frequencia',
+        element: <ProtectedRoute><TurmaDetalhePage /></ProtectedRoute>,
+      },
+      {
+        path: '/professor/turmas/:turmaId/atividades',
+        element: <ProtectedRoute><TurmaDetalhePage /></ProtectedRoute>,
+      },
+      {
+        path: '/professor/turmas/:turmaId/desempenho',
+        element: <ProtectedRoute><TurmaDetalhePage /></ProtectedRoute>,
       },
       {
         path: '/professor/*',
