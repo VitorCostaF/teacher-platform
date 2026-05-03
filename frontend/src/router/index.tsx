@@ -1,6 +1,8 @@
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom'
 import { LoginPage } from '@/features/auth/pages/LoginPage'
 import { ConvitePage } from '@/features/auth/pages/ConvitePage'
+import { RecuperarSenhaPage } from '@/features/auth/pages/RecuperarSenhaPage'
+import { RedefinirSenhaPage } from '@/features/auth/pages/RedefinirSenhaPage'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { useAuthBroadcast } from '@/hooks/useAuthBroadcast'
 
@@ -16,6 +18,8 @@ export const router = createBrowserRouter([
       { path: '/', element: <Navigate to="/login" replace /> },
       { path: '/login', element: <LoginPage /> },
       { path: '/convite/:token', element: <ConvitePage /> },
+      { path: '/recuperar-senha', element: <RecuperarSenhaPage /> },
+      { path: '/recuperar-senha/:token', element: <RedefinirSenhaPage /> },
       {
         path: '/professor/*',
         element: <ProtectedRoute><Navigate to="/professor/dashboard" replace /></ProtectedRoute>,

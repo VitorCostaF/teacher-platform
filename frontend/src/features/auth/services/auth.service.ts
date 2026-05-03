@@ -50,4 +50,10 @@ export const authService = {
 
   ativarConta: (token: string, data: AtivarContaDto) =>
     apiClient.post<LoginResponse>(`/auth/convite/${token}/ativar`, data).then((r) => r.data),
+
+  solicitarRecuperacaoSenha: (email: string) =>
+    apiClient.post('/auth/recuperar-senha', { email }).then((r) => r.data),
+
+  redefinirSenha: (token: string, data: { senha: string }) =>
+    apiClient.post(`/auth/recuperar-senha/${token}`, data).then((r) => r.data),
 }

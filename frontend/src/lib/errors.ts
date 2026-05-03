@@ -4,6 +4,7 @@ export const HTTP_ERROR_MESSAGES: Record<number, string> = {
   403: 'Você não tem permissão para esta ação.',
   404: 'Recurso não encontrado.',
   409: 'Conflito: este registro já existe.',
+  410: 'Este link não está mais disponível.',
   422: 'Dados inválidos no servidor.',
   429: 'Muitas tentativas. Aguarde um momento.',
   500: 'Erro interno do servidor. Tente novamente.',

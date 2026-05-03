@@ -48,7 +48,7 @@ apiClient.interceptors.response.use(
       return Promise.reject(error)
     }
 
-    if (status === 400 || status === 422) {
+    if (status === 400 || status === 410 || status === 422) {
       return Promise.reject(
         new ApiError(
           status,
