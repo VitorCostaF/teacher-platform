@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom'
 import { LoginPage } from '@/features/auth/pages/LoginPage'
+import { ConvitePage } from '@/features/auth/pages/ConvitePage'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { useAuthBroadcast } from '@/hooks/useAuthBroadcast'
 
@@ -14,6 +15,7 @@ export const router = createBrowserRouter([
     children: [
       { path: '/', element: <Navigate to="/login" replace /> },
       { path: '/login', element: <LoginPage /> },
+      { path: '/convite/:token', element: <ConvitePage /> },
       {
         path: '/professor/*',
         element: <ProtectedRoute><Navigate to="/professor/dashboard" replace /></ProtectedRoute>,
