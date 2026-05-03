@@ -1,9 +1,28 @@
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { ErrorBanner } from '@/components/feedback/ErrorBanner'
 import { PasswordInput } from './PasswordInput'
+import { useLoginForm } from '../hooks/useLoginForm'
 
 export function LoginForm() {
+  const {
+    register,
+    handleSubmit,
+    errors,
+    isSubmitting,
+    errorMessage,
+    isLocked,
+    unlockTime,
+    clearError,
+  } = useLoginForm()
+
+  const isDisabled = isSubmitting || isLocked
+
+  const lockedMessage = unlockTime
+    ? `Conta bloqueada até ${unlockTime.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`
+    : 'Conta temporariamente bloqueada'
+
   return (
     <div className="flex flex-col items-center gap-6">
       <div className="flex flex-col items-center gap-2">
@@ -11,7 +30,7 @@ export function LoginForm() {
         <h1 className="text-xl font-semibold text-gray-900">Entrar na plataforma</h1>
       </div>
 
-      <form className="flex w-full flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
+      <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-1.5">
           <label htmlFor="email" className="text-sm font-medium text-gray-700">
             E-mail
@@ -22,6 +41,9 @@ export function LoginForm() {
             autoComplete="email"
             autoFocus
             placeholder="seu@email.com"
+            error={errors.email?.message}
+            disabled={isDisabled}
+            {...register('email')}
           />
         </div>
 
@@ -29,18 +51,30 @@ export function LoginForm() {
           <label htmlFor="password" className="text-sm font-medium text-gray-700">
             Senha
           </label>
-          <PasswordInput id="password" autoComplete="current-password" placeholder="••••••••" />
+          <PasswordInput
+            id="password"
+            autoComplete="current-password"
+            placeholder="••••••••"
+            error={errors.senha?.message}
+            disabled={isDisabled}
+            {...register('senha')}
+          />
         </div>
 
-        <Button type="submit" className="w-full mt-2">
+        {isLocked && (
+          <ErrorBanner variant="warning" message={lockedMessage} />
+        )}
+
+        {errorMessage && !isLocked && (
+          <ErrorBanner variant="error" message={errorMessage} onDismiss={clearError} />
+        )}
+
+        <Button type="submit" className="w-full mt-2" loading={isSubmitting} disabled={isDisabled}>
           Entrar
         </Button>
       </form>
 
-      <Link
-        to="/recuperar-senha"
-        className="text-sm text-blue-600 hover:underline"
-      >
+      <Link to="/recuperar-senha" className="text-sm text-blue-600 hover:underline">
         Esqueci minha senha
       </Link>
     </div>

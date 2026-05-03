@@ -12,4 +12,6 @@ public interface SessaoRepository extends JpaRepository<Sessao, Long> {
     Optional<Sessao> findByRefreshTokenHashAndRevogadoEmIsNull(String hash);
 
     List<Sessao> findByUsuarioIdAndRevogadoEmIsNull(UUID usuarioId);
+
+    List<Sessao> findByUsuarioIdAndRevogadoEmIsNullOrderByCriadoEmAsc(UUID usuarioId);
 }

@@ -17,7 +17,11 @@
       "Bash(Write-Host \"done\")",
       "Bash(npx tsc *)",
       "Bash(npm run *)",
-      "WebFetch(domain:localhost)"
+      "WebFetch(domain:localhost)",
+      "Bash(Get-ChildItem -Path \"F:\\\\Docs\\\\Profissional\\\\Inova\\\\Desenvolvimento\\\\Projetos\\\\Teacher Platform\" -Recurse -Directory)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(./mvnw compile *)",
+      "PowerShell(java *)"
     ]
   }
 }

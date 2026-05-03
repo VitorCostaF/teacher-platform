@@ -7,6 +7,7 @@ import br.com.inovadados.teacherplatform.dto.response.LoginResponse;
 import br.com.inovadados.teacherplatform.dto.response.UsuarioResponse;
 import br.com.inovadados.teacherplatform.exception.AccountInactiveException;
 import br.com.inovadados.teacherplatform.exception.AccountLockedException;
+import br.com.inovadados.teacherplatform.exception.UnauthorizedException;
 import br.com.inovadados.teacherplatform.repository.SessaoRepository;
 import br.com.inovadados.teacherplatform.repository.UsuarioRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -95,6 +97,71 @@ public class AuthService {
         );
 
         return new AuthLoginResult(loginResponse, refreshToken);
+    }
+
+    private static final int MAX_SESSOES_ATIVAS = 5;
+
+    @Transactional
+    public AuthLoginResult refresh(String rawRefreshToken) {
+        if (rawRefreshToken == null || rawRefreshToken.isBlank()) {
+            throw new UnauthorizedException("Refresh token ausente");
+        }
+
+        if (!jwtService.isTokenValid(rawRefreshToken)) {
+            throw new UnauthorizedException("Refresh token inválido ou expirado");
+        }
+
+        String hash = hashSha256(rawRefreshToken);
+        Sessao sessaoAtual = sessaoRepository.findByRefreshTokenHashAndRevogadoEmIsNull(hash)
+            .orElseThrow(() -> new UnauthorizedException("Sessão não encontrada ou revogada"));
+
+        Usuario usuario = sessaoAtual.getUsuario();
+
+        List<Sessao> sessoesAtivas = sessaoRepository
+            .findByUsuarioIdAndRevogadoEmIsNullOrderByCriadoEmAsc(usuario.getId());
+
+        if (sessoesAtivas.size() >= MAX_SESSOES_ATIVAS) {
+            Sessao maisAntiga = sessoesAtivas.get(0);
+            if (!maisAntiga.getId().equals(sessaoAtual.getId())) {
+                maisAntiga.setRevogadoEm(OffsetDateTime.now(ZoneOffset.UTC));
+                sessaoRepository.save(maisAntiga);
+            }
+        }
+
+        sessaoAtual.setRevogadoEm(OffsetDateTime.now(ZoneOffset.UTC));
+        sessaoRepository.save(sessaoAtual);
+
+        String novoAccessToken = jwtService.generateAccessToken(usuario);
+        String novoRefreshToken = jwtService.generateRefreshToken(usuario);
+
+        Sessao novaSessao = new Sessao();
+        novaSessao.setUsuario(usuario);
+        novaSessao.setRefreshTokenHash(hashSha256(novoRefreshToken));
+        novaSessao.setUserAgent(sessaoAtual.getUserAgent());
+        novaSessao.setIp(sessaoAtual.getIp());
+        novaSessao.setCriadoEm(OffsetDateTime.now(ZoneOffset.UTC));
+        novaSessao.setExpiraEm(OffsetDateTime.now(ZoneOffset.UTC).plusSeconds(jwtService.getRefreshTokenExpiration()));
+        sessaoRepository.save(novaSessao);
+
+        LoginResponse loginResponse = new LoginResponse(
+            novoAccessToken,
+            accessTokenExpiration,
+            usuario.getPerfil().name(),
+            new UsuarioResponse(usuario.getId(), usuario.getNome(), usuario.getEmail(), usuario.getAvatarUrl())
+        );
+
+        return new AuthLoginResult(loginResponse, novoRefreshToken);
+    }
+
+    @Transactional
+    public void logout(String rawRefreshToken) {
+        if (rawRefreshToken != null && !rawRefreshToken.isBlank()) {
+            String hash = hashSha256(rawRefreshToken);
+            sessaoRepository.findByRefreshTokenHashAndRevogadoEmIsNull(hash).ifPresent(sessao -> {
+                sessao.setRevogadoEm(OffsetDateTime.now(ZoneOffset.UTC));
+                sessaoRepository.save(sessao);
+            });
+        }
     }
 
     private String hashSha256(String value) {

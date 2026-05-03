@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,17 +36,51 @@ public class AuthController {
 
         AuthLoginResult result = authService.login(request, httpRequest);
 
-        ResponseCookie refreshCookie = ResponseCookie.from("refresh_token", result.refreshToken())
+        return ResponseEntity.ok()
+            .header(HttpHeaders.SET_COOKIE, buildRefreshCookie(result.refreshToken()).toString())
+            .body(result.loginResponse());
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<LoginResponse> refresh(
+            @CookieValue(name = "refresh_token", required = false) String refreshToken) {
+
+        AuthLoginResult result = authService.refresh(refreshToken);
+
+        ResponseCookie novoCookie = buildRefreshCookie(result.refreshToken());
+
+        return ResponseEntity.ok()
+            .header(HttpHeaders.SET_COOKIE, novoCookie.toString())
+            .body(result.loginResponse());
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(
+            @CookieValue(name = "refresh_token", required = false) String refreshToken) {
+
+        authService.logout(refreshToken);
+
+        ResponseCookie clearCookie = ResponseCookie.from("refresh_token", "")
+            .httpOnly(true)
+            .secure(true)
+            .sameSite("Strict")
+            .maxAge(0)
+            .path("/auth")
+            .build();
+
+        return ResponseEntity.noContent()
+            .header(HttpHeaders.SET_COOKIE, clearCookie.toString())
+            .build();
+    }
+
+    private ResponseCookie buildRefreshCookie(String token) {
+        return ResponseCookie.from("refresh_token", token)
             .httpOnly(true)
             .secure(true)
             .sameSite("Strict")
             .maxAge(Duration.ofDays(30))
             .path("/auth")
             .build();
-
-        return ResponseEntity.ok()
-            .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
-            .body(result.loginResponse());
     }
 
     private String getClientIp(HttpServletRequest request) {
