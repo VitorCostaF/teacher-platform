@@ -14,6 +14,7 @@ import { SugestoesConteudoPage } from '@/features/criacao-ia/pages/SugestoesCont
 import { GeradorAtividadesPage } from '@/features/criacao-ia/pages/GeradorAtividadesPage'
 import { RevisaoPublicacaoPage } from '@/features/criacao-ia/pages/RevisaoPublicacaoPage'
 import { FeedPage } from '@/features/aluno/pages/FeedPage'
+import { FlashcardsPage } from '@/features/aluno/pages/FlashcardsPage'
 
 function RootLayout() {
   useAuthBroadcast()
@@ -88,6 +89,10 @@ export const router = createBrowserRouter([
       {
         path: '/aluno/desempenho',
         element: <ProtectedRoute><FeedPage /></ProtectedRoute>,
+      },
+      {
+        path: '/aluno/flashcards',
+        element: <ProtectedRoute><FlashcardsPage /></ProtectedRoute>,
       },
       {
         path: '/aluno/*',

@@ -29,6 +29,13 @@ export interface RecomendacaoItem {
   tipo: string
 }
 
+export interface FlashcardData {
+  id: number
+  pergunta: string
+  resposta: string
+  topico: string
+}
+
 export interface DesempenhoData {
   mediaGeral: number
   totalAtividades: number
