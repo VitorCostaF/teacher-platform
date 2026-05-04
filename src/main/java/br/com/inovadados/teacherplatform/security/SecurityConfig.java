@@ -29,6 +29,9 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/notificacoes/vapid-public-key").permitAll()
+                .requestMatchers("/notificacoes/**").authenticated()
+                .requestMatchers("/usuario/preferencias-notificacao").authenticated()
                 .requestMatchers("/professor/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
                 .requestMatchers(HttpMethod.GET, "/admin/**").hasAnyRole("ADMIN", "COORDENADOR")
                 .requestMatchers("/admin/**").hasRole("ADMIN")

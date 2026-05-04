@@ -35,7 +35,10 @@
       "Bash(node -e \"require\\('recharts'\\); console.log\\('ok'\\)\")",
       "Bash(findstr recharts *)",
       "Bash(not exist *)",
-      "PowerShell(New-Item *)"
+      "PowerShell(New-Item *)",
+      "Bash(Get-ChildItem -Path \"F:\\\\Docs\\\\Profissional\\\\Inova\\\\Desenvolvimento\\\\Projetos\\\\Teacher Platform\\\\backend\" -Directory)",
+      "Bash(Select-Object Name)",
+      "Bash(cd \"F:\\\\\\\\Docs\\\\\\\\Profissional\\\\\\\\Inova\\\\\\\\Desenvolvimento\\\\\\\\Projetos\\\\\\\\Teacher Platform\\\\\\\\backend\")"
     ]
   }
 }

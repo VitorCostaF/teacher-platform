@@ -9,4 +9,6 @@ import java.util.UUID;
 public interface VinculoResponsavelRepository extends JpaRepository<VinculoResponsavel, Long> {
 
     List<VinculoResponsavel> findByResponsavelId(UUID responsavelId);
+
+    List<VinculoResponsavel> findByAlunoId(UUID alunoId);
 }

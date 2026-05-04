@@ -9,24 +9,11 @@ export default defineConfig({
     react(),
     tailwindcss(),
     VitePWA({
-      registerType: 'autoUpdate',
-      workbox: {
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.ts',
+      injectManifest: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-        runtimeCaching: [
-          {
-            urlPattern: /^\/api\/(?!auth\/|provas\/\d+\/sessoes)/,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'api-cache',
-              expiration: { maxEntries: 50, maxAgeSeconds: 300 },
-            },
-          },
-          {
-            // Tokens de autenticação nunca devem ser cacheados
-            urlPattern: /^\/api\/auth\//,
-            handler: 'NetworkOnly',
-          },
-        ],
       },
       manifest: false, // usar manifest.json manual em public/
     }),
