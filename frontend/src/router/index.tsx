@@ -13,6 +13,7 @@ import { GeradorGradePage } from '@/features/criacao-ia/pages/GeradorGradePage'
 import { SugestoesConteudoPage } from '@/features/criacao-ia/pages/SugestoesConteudoPage'
 import { GeradorAtividadesPage } from '@/features/criacao-ia/pages/GeradorAtividadesPage'
 import { RevisaoPublicacaoPage } from '@/features/criacao-ia/pages/RevisaoPublicacaoPage'
+import { FeedPage } from '@/features/aluno/pages/FeedPage'
 
 function RootLayout() {
   useAuthBroadcast()
@@ -75,6 +76,18 @@ export const router = createBrowserRouter([
       {
         path: '/professor/*',
         element: <ProtectedRoute><Navigate to="/professor/dashboard" replace /></ProtectedRoute>,
+      },
+      {
+        path: '/aluno/feed',
+        element: <ProtectedRoute><FeedPage /></ProtectedRoute>,
+      },
+      {
+        path: '/aluno/atividades',
+        element: <ProtectedRoute><FeedPage /></ProtectedRoute>,
+      },
+      {
+        path: '/aluno/desempenho',
+        element: <ProtectedRoute><FeedPage /></ProtectedRoute>,
       },
       {
         path: '/aluno/*',
