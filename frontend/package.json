@@ -25,6 +25,8 @@
     "react-hook-form": "^7.75.0",
     "react-router-dom": "^7.14.2",
     "recharts": "^3.8.1",
+    "vite-plugin-pwa": "^1.2.0",
+    "workbox-window": "^7.4.1",
     "xlsx": "^0.18.5",
     "zod": "^4.4.2"
   },

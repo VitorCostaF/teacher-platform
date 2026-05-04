@@ -22,6 +22,9 @@ import { ResultadoPage } from '@/features/aluno/pages/ResultadoPage'
 import { DashboardProfessorPage } from '@/features/dashboard/pages/DashboardProfessorPage'
 import { DesempenhoTurmaPage } from '@/features/dashboard/pages/DesempenhoTurmaPage'
 import { DesempenhoAlunoPage } from '@/features/dashboard/pages/DesempenhoAlunoPage'
+import { PainelResponsavelPage } from '@/features/responsavel/pages/PainelResponsavelPage'
+import { BoletimPage } from '@/features/responsavel/pages/BoletimPage'
+import { FrequenciaResponsavelPage } from '@/features/responsavel/pages/FrequenciaResponsavelPage'
 import { AdminVisaoGeralPage } from '@/features/admin/pages/AdminVisaoGeralPage'
 import { ProfessoresPage } from '@/features/admin/pages/ProfessoresPage'
 import { AlunosAdminPage } from '@/features/admin/pages/AlunosAdminPage'
@@ -128,6 +131,18 @@ export const router = createBrowserRouter([
       {
         path: '/aluno/*',
         element: <ProtectedRoute><Navigate to="/aluno/feed" replace /></ProtectedRoute>,
+      },
+      {
+        path: '/responsavel/acompanhamento',
+        element: <ProtectedRoute><PainelResponsavelPage /></ProtectedRoute>,
+      },
+      {
+        path: '/responsavel/alunos/:alunoId/boletim',
+        element: <ProtectedRoute><BoletimPage /></ProtectedRoute>,
+      },
+      {
+        path: '/responsavel/alunos/:alunoId/frequencia',
+        element: <ProtectedRoute><FrequenciaResponsavelPage /></ProtectedRoute>,
       },
       {
         path: '/responsavel/*',

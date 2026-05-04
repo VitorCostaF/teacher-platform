@@ -33,7 +33,9 @@
       "Bash(dir /s /b)",
       "Bash(findstr /v \"node_modules\")",
       "Bash(node -e \"require\\('recharts'\\); console.log\\('ok'\\)\")",
-      "Bash(findstr recharts *)"
+      "Bash(findstr recharts *)",
+      "Bash(not exist *)",
+      "PowerShell(New-Item *)"
     ]
   }
 }
