@@ -18,6 +18,7 @@ import { FlashcardsPage } from '@/features/aluno/pages/FlashcardsPage'
 import { DesempenhoPage } from '@/features/aluno/pages/DesempenhoPage'
 import { RealizarAtividadePage } from '@/features/aluno/pages/RealizarAtividadePage'
 import { RealizarProvaPage } from '@/features/aluno/pages/RealizarProvaPage'
+import { ResultadoPage } from '@/features/aluno/pages/ResultadoPage'
 
 function RootLayout() {
   useAuthBroadcast()
@@ -104,6 +105,10 @@ export const router = createBrowserRouter([
       {
         path: '/aluno/provas/:id',
         element: <ProtectedRoute><RealizarProvaPage /></ProtectedRoute>,
+      },
+      {
+        path: '/aluno/avaliacoes/:entregaId/resultado',
+        element: <ProtectedRoute><ResultadoPage /></ProtectedRoute>,
       },
       {
         path: '/aluno/*',

@@ -99,3 +99,30 @@ export interface AutosavePayload {
   respostas: RespostasMap
   eventoVisibilidade?: 'visible' | 'hidden'
 }
+
+// Resultado e feedback pós-entrega
+export interface GabaritoQuestao {
+  questaoId: number
+  numero: number
+  tipo: string
+  enunciado: string
+  respostaAluno: string | number
+  respostaCorreta?: string | number
+  correta?: boolean
+  alternativas?: string[]
+  observacaoProfessor?: string
+}
+
+export interface AnaliseTopico {
+  topico: string
+  questoesErradas: number
+  totalQuestoes: number
+}
+
+export interface ResultadoData {
+  nota?: number
+  mediaTurma?: number
+  gabaritoDisponivel: boolean
+  gabarito?: GabaritoQuestao[]
+  analiseTopicos?: AnaliseTopico[]
+}

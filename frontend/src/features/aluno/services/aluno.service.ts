@@ -1,7 +1,7 @@
 import { apiClient } from '@/lib/api'
 import type {
   AtividadeDetalhe, AutosavePayload, DesempenhoData, EntregaResult,
-  FeedData, FlashcardData, RespostasMap, SessaoProvaData,
+  FeedData, FlashcardData, RespostasMap, ResultadoData, SessaoProvaData,
 } from '../types'
 
 export const alunoService = {
@@ -40,4 +40,7 @@ export const alunoService = {
 
   entregarProva: (provaId: number, sessaoId: number, respostas: RespostasMap) =>
     apiClient.post<EntregaResult>(`/provas/${provaId}/sessoes/${sessaoId}/entregar`, { respostas }).then(r => r.data),
+
+  getResultado: (entregaId: number) =>
+    apiClient.get<ResultadoData>(`/aluno/avaliacoes/${entregaId}/resultado`).then(r => r.data),
 }
