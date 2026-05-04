@@ -86,3 +86,16 @@ export interface EntregaResult {
   status: string
   entregueEm: string
 }
+
+// Realização de prova com timer
+export interface SessaoProvaData {
+  sessaoId: number
+  iniciadaEm: string
+  duracaoMinutos: number
+  respostasParciais?: RespostasMap
+}
+
+export interface AutosavePayload {
+  respostas: RespostasMap
+  eventoVisibilidade?: 'visible' | 'hidden'
+}

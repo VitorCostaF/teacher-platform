@@ -1,5 +1,8 @@
 import { apiClient } from '@/lib/api'
-import type { AtividadeDetalhe, DesempenhoData, EntregaResult, FeedData, FlashcardData, RespostasMap } from '../types'
+import type {
+  AtividadeDetalhe, AutosavePayload, DesempenhoData, EntregaResult,
+  FeedData, FlashcardData, RespostasMap, SessaoProvaData,
+} from '../types'
 
 export const alunoService = {
   getFeed: () =>
@@ -28,4 +31,13 @@ export const alunoService = {
     form.append('file', file)
     return apiClient.post<{ url: string }>('/upload/resposta', form).then(r => r.data)
   },
+
+  iniciarProva: (provaId: number) =>
+    apiClient.post<SessaoProvaData>(`/provas/${provaId}/iniciar`).then(r => r.data),
+
+  autosaveProva: (provaId: number, sessaoId: number, payload: AutosavePayload) =>
+    apiClient.put(`/provas/${provaId}/sessoes/${sessaoId}/autosave`, payload).then(r => r.data),
+
+  entregarProva: (provaId: number, sessaoId: number, respostas: RespostasMap) =>
+    apiClient.post<EntregaResult>(`/provas/${provaId}/sessoes/${sessaoId}/entregar`, { respostas }).then(r => r.data),
 }
