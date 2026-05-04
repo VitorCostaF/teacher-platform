@@ -47,3 +47,42 @@ export interface ProvaConfig {
   conteudoTexto: string
   topicos: string[]
 }
+
+// Grade de Aulas
+export type PeriodoGrade = 'SEMANA' | 'MES' | 'SEMESTRE'
+
+export interface AulaGrade {
+  id: string
+  semana: number
+  aula: number
+  conteudo: string
+  objetivos: string
+  recursosSugeridos: string
+}
+
+export interface GradeResponse {
+  aulas: AulaGrade[]
+}
+
+export interface GerarGradeDto {
+  turmaId: number
+  disciplina: string
+  serie: string
+  periodo: PeriodoGrade
+  aulasPorSemana: number
+  topicosObrigatorios?: string
+  alinhamentoBNCC: boolean
+}
+
+// Sugestão de Conteúdos
+export interface SugestaoParams {
+  serie: string
+  disciplina: string
+  bimestre: string
+}
+
+export interface SugestaoConteudoResponse {
+  competenciasBNCC: string[]
+  topicos: string[]
+  linksComplementares: string[]
+}

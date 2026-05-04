@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { toastEmitter } from '@/lib/toastEmitter'
 import { useGeradorProvas } from '../hooks/useGeradorProvas'
 import { provasService } from '../services/provas.service'
@@ -10,13 +10,16 @@ import type { QuestaoGerada } from '../types'
 
 export function GeradorProvasPage() {
   const navigate = useNavigate()
+  const location = useLocation()
   const [isPublicando, setIsPublicando] = useState(false)
+
+  const topicosIniciais: string[] = (location.state as { topicos?: string[] } | null)?.topicos ?? []
 
   const {
     config, questoes, isGenerating, isUploading, avisoConteudo, podeGerar,
     atualizarConfig, gerarComIA, regenerarQuestao, editarQuestao,
     removerQuestao, adicionarQuestaoManual, uploadArquivo,
-  } = useGeradorProvas()
+  } = useGeradorProvas(topicosIniciais)
 
   async function handleSalvarRascunho() {
     if (questoes.length === 0) {

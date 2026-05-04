@@ -3,17 +3,19 @@ import { toastEmitter } from '@/lib/toastEmitter'
 import { iaService } from '../services/ia.service'
 import type { ProvaConfig, QuestaoGerada, TipoQuestao } from '../types'
 
-const configInicial: ProvaConfig = {
-  turmaId: null,
-  disciplina: '',
-  serie: '',
-  titulo: '',
-  dificuldade: 'MEDIO',
-  duracaoMinutos: '',
-  quantidades: { MULTIPLA_ESCOLHA: 5 },
-  fonte: 'texto',
-  conteudoTexto: '',
-  topicos: [],
+function buildConfigInicial(topicos: string[]): ProvaConfig {
+  return {
+    turmaId: null,
+    disciplina: '',
+    serie: '',
+    titulo: '',
+    dificuldade: 'MEDIO',
+    duracaoMinutos: '',
+    quantidades: { MULTIPLA_ESCOLHA: 5 },
+    fonte: topicos.length > 0 ? 'topicos' : 'texto',
+    conteudoTexto: '',
+    topicos,
+  }
 }
 
 function gerarIdLocal() {
@@ -30,8 +32,8 @@ function validarConfig(config: ProvaConfig): string | null {
   return null
 }
 
-export function useGeradorProvas() {
-  const [config, setConfig] = useState<ProvaConfig>(configInicial)
+export function useGeradorProvas(topicosIniciais: string[] = []) {
+  const [config, setConfig] = useState<ProvaConfig>(() => buildConfigInicial(topicosIniciais))
   const [questoes, setQuestoes] = useState<QuestaoGerada[]>([])
   const [isGenerating, setIsGenerating] = useState(false)
   const [isUploading, setIsUploading] = useState(false)

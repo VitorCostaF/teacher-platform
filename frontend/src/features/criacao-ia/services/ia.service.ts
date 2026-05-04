@@ -1,5 +1,8 @@
 import { apiClient } from '@/lib/api'
-import type { GeracaoResponse, GerarProvaDto, QuestaoGerada, RegerarQuestaoDto } from '../types'
+import type {
+  GeracaoResponse, GerarProvaDto, QuestaoGerada, RegerarQuestaoDto,
+  GerarGradeDto, GradeResponse, SugestaoParams, SugestaoConteudoResponse,
+} from '../types'
 
 export const iaService = {
   gerarProva: (req: GerarProvaDto) =>
@@ -18,4 +21,10 @@ export const iaService = {
       })
       .then(r => r.data)
   },
+
+  gerarGrade: (req: GerarGradeDto) =>
+    apiClient.post<GradeResponse>('/ia/gerar-grade', req).then(r => r.data),
+
+  getSugestoesConteudo: (params: SugestaoParams) =>
+    apiClient.get<SugestaoConteudoResponse>('/ia/sugestoes-conteudo', { params }).then(r => r.data),
 }
