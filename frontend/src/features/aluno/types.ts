@@ -59,3 +59,30 @@ export interface DesempenhoData {
   evolucaoNotas: { avaliacaoNome: string; nota: number; disciplina: string }[]
   conquistas: Conquista[]
 }
+
+// Realização de atividade
+export type RespostasMap = Record<number, string | number | string[]>
+
+export interface QuestaoAtividade {
+  id: number
+  numero: number
+  tipo: string
+  enunciado: string
+  alternativas?: string[]
+}
+
+export interface AtividadeDetalhe {
+  id: number
+  titulo: string
+  disciplina: string
+  prazo: string
+  permiteAtraso: boolean
+  questoes: QuestaoAtividade[]
+  respostasRascunho?: RespostasMap
+}
+
+export interface EntregaResult {
+  id: number
+  status: string
+  entregueEm: string
+}

@@ -16,6 +16,7 @@ import { RevisaoPublicacaoPage } from '@/features/criacao-ia/pages/RevisaoPublic
 import { FeedPage } from '@/features/aluno/pages/FeedPage'
 import { FlashcardsPage } from '@/features/aluno/pages/FlashcardsPage'
 import { DesempenhoPage } from '@/features/aluno/pages/DesempenhoPage'
+import { RealizarAtividadePage } from '@/features/aluno/pages/RealizarAtividadePage'
 
 function RootLayout() {
   useAuthBroadcast()
@@ -94,6 +95,10 @@ export const router = createBrowserRouter([
       {
         path: '/aluno/flashcards',
         element: <ProtectedRoute><FlashcardsPage /></ProtectedRoute>,
+      },
+      {
+        path: '/aluno/atividades/:id',
+        element: <ProtectedRoute><RealizarAtividadePage /></ProtectedRoute>,
       },
       {
         path: '/aluno/*',
