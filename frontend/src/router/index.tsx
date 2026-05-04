@@ -19,6 +19,7 @@ import { DesempenhoPage } from '@/features/aluno/pages/DesempenhoPage'
 import { RealizarAtividadePage } from '@/features/aluno/pages/RealizarAtividadePage'
 import { RealizarProvaPage } from '@/features/aluno/pages/RealizarProvaPage'
 import { ResultadoPage } from '@/features/aluno/pages/ResultadoPage'
+import { DashboardProfessorPage } from '@/features/dashboard/pages/DashboardProfessorPage'
 
 function RootLayout() {
   useAuthBroadcast()
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       { path: '/convite/:token', element: <ConvitePage /> },
       { path: '/recuperar-senha', element: <RecuperarSenhaPage /> },
       { path: '/recuperar-senha/:token', element: <RedefinirSenhaPage /> },
+      {
+        path: '/professor/dashboard',
+        element: <ProtectedRoute><DashboardProfessorPage /></ProtectedRoute>,
+      },
       {
         path: '/professor/turmas',
         element: <ProtectedRoute><TurmasPage /></ProtectedRoute>,
