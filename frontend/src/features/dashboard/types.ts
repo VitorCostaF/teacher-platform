@@ -33,3 +33,28 @@ export interface MapaCalorItem {
   topico: string
   percentualErros: number
 }
+
+export interface AlunoResumo {
+  id: string
+  nome: string
+  foto?: string
+}
+
+export interface DesempenhoTurmaData {
+  mediaGeral: number
+  maiorNota: number
+  menorNota: number
+  percentualAprovacao: number
+  percentualFrequencia: number
+  histograma: Array<{ faixa: string; quantidade: number; alunos: AlunoResumo[] }>
+  ranking: Array<{ aluno: AlunoResumo; media: number; frequencia: number; tendencia: 'UP' | 'DOWN' | 'STABLE' }>
+}
+
+export interface DesempenhoAlunoData {
+  aluno: AlunoResumo
+  situacao: string
+  evolucaoNotas: Array<{ avaliacaoNome: string; nota: number }>
+  frequenciaMensal: Array<{ mes: string; percentual: number }>
+  topicosAcerto: Array<{ topico: string; percentual: number }>
+  observacoes: Array<{ texto: string; criadoEm: string }>
+}

@@ -20,6 +20,8 @@ import { RealizarAtividadePage } from '@/features/aluno/pages/RealizarAtividadeP
 import { RealizarProvaPage } from '@/features/aluno/pages/RealizarProvaPage'
 import { ResultadoPage } from '@/features/aluno/pages/ResultadoPage'
 import { DashboardProfessorPage } from '@/features/dashboard/pages/DashboardProfessorPage'
+import { DesempenhoTurmaPage } from '@/features/dashboard/pages/DesempenhoTurmaPage'
+import { DesempenhoAlunoPage } from '@/features/dashboard/pages/DesempenhoAlunoPage'
 
 function RootLayout() {
   useAuthBroadcast()
@@ -81,7 +83,11 @@ export const router = createBrowserRouter([
       },
       {
         path: '/professor/turmas/:turmaId/desempenho',
-        element: <ProtectedRoute><TurmaDetalhePage /></ProtectedRoute>,
+        element: <ProtectedRoute><DesempenhoTurmaPage /></ProtectedRoute>,
+      },
+      {
+        path: '/professor/turmas/:turmaId/alunos/:alunoId/desempenho',
+        element: <ProtectedRoute><DesempenhoAlunoPage /></ProtectedRoute>,
       },
       {
         path: '/professor/*',
