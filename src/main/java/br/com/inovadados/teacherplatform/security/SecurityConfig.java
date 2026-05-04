@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .requestMatchers("/upload/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
                 .requestMatchers("/provas/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
                 .requestMatchers("/atividades/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
+                .requestMatchers("/aluno/**").hasRole("ALUNO")
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -15,4 +16,6 @@ public interface EntregaRepository extends JpaRepository<Entrega, Long> {
 
     @Query("SELECT COUNT(e) FROM Entrega e WHERE e.avaliacao.turma.id = :turmaId AND e.status = :status")
     long countByTurmaIdAndStatus(@Param("turmaId") Long turmaId, @Param("status") StatusEntregaEnum status);
+
+    List<Entrega> findByAlunoId(UUID alunoId);
 }

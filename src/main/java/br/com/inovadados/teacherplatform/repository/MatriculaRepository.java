@@ -12,4 +12,6 @@ public interface MatriculaRepository extends JpaRepository<Matricula, Long> {
     List<Matricula> findByTurmaIdAndRemovidoEmIsNull(Long turmaId);
 
     Optional<Matricula> findByTurmaIdAndAlunoId(Long turmaId, UUID alunoId);
+
+    List<Matricula> findByAlunoIdAndRemovidoEmIsNull(UUID alunoId);
 }
