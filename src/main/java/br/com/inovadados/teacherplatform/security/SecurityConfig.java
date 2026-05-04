@@ -30,7 +30,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/professor/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
-                .requestMatchers("/admin/**").hasAnyRole("ADMIN", "COORDENADOR")
+                .requestMatchers(HttpMethod.GET, "/admin/**").hasAnyRole("ADMIN", "COORDENADOR")
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/ia/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
                 .requestMatchers("/upload/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
                 // Rotas de atividade/prova acessíveis ao aluno (avaliadas antes das catch-alls)

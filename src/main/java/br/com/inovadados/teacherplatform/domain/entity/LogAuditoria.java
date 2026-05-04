@@ -38,6 +38,9 @@ public class LogAuditoria {
     @Column(name = "dados_anteriores", columnDefinition = "jsonb")
     private String dadosAnteriores;
 
+    @Column(name = "dados_novos", columnDefinition = "jsonb")
+    private String dadosNovos;
+
     @Column(columnDefinition = "TEXT")
     private String motivo;
 

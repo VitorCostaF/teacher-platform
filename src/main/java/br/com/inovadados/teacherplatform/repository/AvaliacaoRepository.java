@@ -13,4 +13,6 @@ public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Long> {
     List<Avaliacao> findByTurmaIdInAndStatus(List<Long> turmaIds, StatusAvaliacaoEnum status);
 
     List<Avaliacao> findByTurmaIdOrderByDisponivelEmAsc(Long turmaId);
+
+    List<Avaliacao> findByTurmaIdIn(List<Long> turmaIds);
 }
