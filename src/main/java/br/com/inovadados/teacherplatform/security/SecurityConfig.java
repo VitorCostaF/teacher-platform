@@ -3,6 +3,7 @@ package br.com.inovadados.teacherplatform.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,6 +33,14 @@ public class SecurityConfig {
                 .requestMatchers("/admin/**").hasAnyRole("ADMIN", "COORDENADOR")
                 .requestMatchers("/ia/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
                 .requestMatchers("/upload/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
+                // Rotas de atividade/prova acessíveis ao aluno (avaliadas antes das catch-alls)
+                .requestMatchers(HttpMethod.GET, "/atividades/*").hasRole("ALUNO")
+                .requestMatchers(HttpMethod.PUT, "/atividades/*/rascunho").hasRole("ALUNO")
+                .requestMatchers(HttpMethod.POST, "/atividades/*/entregar").hasRole("ALUNO")
+                .requestMatchers(HttpMethod.POST, "/provas/*/iniciar").hasRole("ALUNO")
+                .requestMatchers(HttpMethod.PUT, "/provas/*/sessoes/*/autosave").hasRole("ALUNO")
+                .requestMatchers(HttpMethod.POST, "/provas/*/sessoes/*/entregar").hasRole("ALUNO")
+                // Catch-alls para professor
                 .requestMatchers("/provas/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
                 .requestMatchers("/atividades/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
                 .requestMatchers("/aluno/**").hasRole("ALUNO")
