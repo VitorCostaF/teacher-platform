@@ -22,6 +22,10 @@ import { ResultadoPage } from '@/features/aluno/pages/ResultadoPage'
 import { DashboardProfessorPage } from '@/features/dashboard/pages/DashboardProfessorPage'
 import { DesempenhoTurmaPage } from '@/features/dashboard/pages/DesempenhoTurmaPage'
 import { DesempenhoAlunoPage } from '@/features/dashboard/pages/DesempenhoAlunoPage'
+import { AdminVisaoGeralPage } from '@/features/admin/pages/AdminVisaoGeralPage'
+import { ProfessoresPage } from '@/features/admin/pages/ProfessoresPage'
+import { AlunosAdminPage } from '@/features/admin/pages/AlunosAdminPage'
+import { ConfiguracoesPage } from '@/features/admin/pages/ConfiguracoesPage'
 
 function RootLayout() {
   useAuthBroadcast()
@@ -128,6 +132,22 @@ export const router = createBrowserRouter([
       {
         path: '/responsavel/*',
         element: <ProtectedRoute><Navigate to="/responsavel/acompanhamento" replace /></ProtectedRoute>,
+      },
+      {
+        path: '/admin/visao-geral',
+        element: <ProtectedRoute><AdminVisaoGeralPage /></ProtectedRoute>,
+      },
+      {
+        path: '/admin/professores',
+        element: <ProtectedRoute><ProfessoresPage /></ProtectedRoute>,
+      },
+      {
+        path: '/admin/alunos',
+        element: <ProtectedRoute><AlunosAdminPage /></ProtectedRoute>,
+      },
+      {
+        path: '/admin/configuracoes',
+        element: <ProtectedRoute><ConfiguracoesPage /></ProtectedRoute>,
       },
       {
         path: '/admin/*',
