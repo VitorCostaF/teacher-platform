@@ -74,6 +74,14 @@ export interface GerarGradeDto {
   alinhamentoBNCC: boolean
 }
 
+// Gerador de Atividades
+export type TipoEntrega = 'ONLINE' | 'PDF' | 'AMBOS'
+export type TipoQuestaoAtividade =
+  | TipoQuestao
+  | 'LEITURA_COM_PERGUNTAS'
+  | 'PESQUISA_COM_ROTEIRO'
+  | 'PROJETO_COM_ETAPAS'
+
 // Sugestão de Conteúdos
 export interface SugestaoParams {
   serie: string

@@ -11,6 +11,7 @@ import { LancamentoFrequenciaPage } from '@/features/frequencia/pages/Lancamento
 import { GeradorProvasPage } from '@/features/criacao-ia/pages/GeradorProvasPage'
 import { GeradorGradePage } from '@/features/criacao-ia/pages/GeradorGradePage'
 import { SugestoesConteudoPage } from '@/features/criacao-ia/pages/SugestoesConteudoPage'
+import { GeradorAtividadesPage } from '@/features/criacao-ia/pages/GeradorAtividadesPage'
 
 function RootLayout() {
   useAuthBroadcast()
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: '/professor/criar/sugestoes',
         element: <ProtectedRoute><SugestoesConteudoPage /></ProtectedRoute>,
+      },
+      {
+        path: '/professor/criar/atividade',
+        element: <ProtectedRoute><GeradorAtividadesPage /></ProtectedRoute>,
       },
       {
         path: '/professor/turmas/:turmaId/atividades',
