@@ -8,6 +8,7 @@ import { useAuthBroadcast } from '@/hooks/useAuthBroadcast'
 import { TurmasPage } from '@/features/turmas/pages/TurmasPage'
 import { TurmaDetalhePage } from '@/features/turmas/pages/TurmaDetalhePage'
 import { LancamentoFrequenciaPage } from '@/features/frequencia/pages/LancamentoFrequenciaPage'
+import { GeradorProvasPage } from '@/features/criacao-ia/pages/GeradorProvasPage'
 
 function RootLayout() {
   useAuthBroadcast()
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: '/professor/turmas/:turmaId/frequencia',
         element: <ProtectedRoute><LancamentoFrequenciaPage /></ProtectedRoute>,
+      },
+      {
+        path: '/professor/criar/prova',
+        element: <ProtectedRoute><GeradorProvasPage /></ProtectedRoute>,
       },
       {
         path: '/professor/turmas/:turmaId/atividades',
