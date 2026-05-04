@@ -2,6 +2,7 @@ import { apiClient } from '@/lib/api'
 import type {
   GeracaoResponse, GerarProvaDto, QuestaoGerada, RegerarQuestaoDto,
   GerarGradeDto, GradeResponse, SugestaoParams, SugestaoConteudoResponse,
+  PublicarDto, PreviewAvaliacaoResponse,
 } from '../types'
 
 export const iaService = {
@@ -27,4 +28,10 @@ export const iaService = {
 
   getSugestoesConteudo: (params: SugestaoParams) =>
     apiClient.get<SugestaoConteudoResponse>('/ia/sugestoes-conteudo', { params }).then(r => r.data),
+
+  getPreview: (provaId: number) =>
+    apiClient.get<PreviewAvaliacaoResponse>(`/provas/${provaId}/preview`).then(r => r.data),
+
+  publicar: (provaId: number, config: PublicarDto) =>
+    apiClient.post(`/provas/${provaId}/publicar`, config).then(r => r.data),
 }

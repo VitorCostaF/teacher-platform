@@ -74,6 +74,26 @@ export interface GerarGradeDto {
   alinhamentoBNCC: boolean
 }
 
+// Revisão e Publicação
+export interface PublicarDto {
+  disponivelEm: string
+  encerraEm?: string
+  turmasIds: number[]
+  embaralharQuestoes: boolean
+  embaralharAlternativas: boolean
+  liberarGabaritoApos: 'entrega' | 'encerramento' | 'manual'
+  peso: number
+}
+
+export interface PreviewAvaliacaoResponse {
+  id: number
+  titulo: string
+  disciplina: string
+  serie: string
+  duracaoMinutos: number | null
+  questoes: QuestaoGerada[]
+}
+
 // Gerador de Atividades
 export type TipoEntrega = 'ONLINE' | 'PDF' | 'AMBOS'
 export type TipoQuestaoAtividade =

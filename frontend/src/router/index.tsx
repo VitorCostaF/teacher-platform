@@ -12,6 +12,7 @@ import { GeradorProvasPage } from '@/features/criacao-ia/pages/GeradorProvasPage
 import { GeradorGradePage } from '@/features/criacao-ia/pages/GeradorGradePage'
 import { SugestoesConteudoPage } from '@/features/criacao-ia/pages/SugestoesConteudoPage'
 import { GeradorAtividadesPage } from '@/features/criacao-ia/pages/GeradorAtividadesPage'
+import { RevisaoPublicacaoPage } from '@/features/criacao-ia/pages/RevisaoPublicacaoPage'
 
 function RootLayout() {
   useAuthBroadcast()
@@ -54,6 +55,14 @@ export const router = createBrowserRouter([
       {
         path: '/professor/criar/atividade',
         element: <ProtectedRoute><GeradorAtividadesPage /></ProtectedRoute>,
+      },
+      {
+        path: '/professor/criar/prova/:id/publicar',
+        element: <ProtectedRoute><RevisaoPublicacaoPage /></ProtectedRoute>,
+      },
+      {
+        path: '/professor/criar/atividade/:id/publicar',
+        element: <ProtectedRoute><RevisaoPublicacaoPage /></ProtectedRoute>,
       },
       {
         path: '/professor/turmas/:turmaId/atividades',
