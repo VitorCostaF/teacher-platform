@@ -43,6 +43,7 @@ public class SecurityConfig {
                 // Catch-alls para professor
                 .requestMatchers("/provas/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
                 .requestMatchers("/atividades/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
+                .requestMatchers("/relatorios/**").hasAnyRole("PROFESSOR", "ADMIN", "COORDENADOR")
                 .requestMatchers("/aluno/**").hasRole("ALUNO")
                 .anyRequest().authenticated()
             )

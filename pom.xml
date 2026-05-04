@@ -111,6 +111,23 @@
 			<version>3.0.3</version>
 		</dependency>
 
+		<!-- Geração de PDF para relatórios -->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>kernel</artifactId>
+			<version>9.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>layout</artifactId>
+			<version>9.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>io</artifactId>
+			<version>9.1.0</version>
+		</dependency>
+
 		<!-- Parsing CSV/XLSX para importação de alunos -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>

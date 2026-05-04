@@ -18,4 +18,8 @@ public interface EntregaRepository extends JpaRepository<Entrega, Long> {
     long countByTurmaIdAndStatus(@Param("turmaId") Long turmaId, @Param("status") StatusEntregaEnum status);
 
     List<Entrega> findByAlunoId(UUID alunoId);
+
+    List<Entrega> findByAvaliacaoId(Long avaliacaoId);
+
+    List<Entrega> findByAvaliacaoIdIn(List<Long> avaliacaoIds);
 }
