@@ -36,9 +36,26 @@ export interface FlashcardData {
   topico: string
 }
 
+export interface DisciplinaDesempenho {
+  id: number
+  nome: string
+  media: number
+  tendencia: 'UP' | 'DOWN' | 'STABLE'
+  proximaAvaliacao?: string
+}
+
+export interface Conquista {
+  tipo: string
+  descricao: string
+  icone: string
+  obtidaEm: string
+}
+
 export interface DesempenhoData {
-  mediaGeral: number
-  totalAtividades: number
+  mediaGlobal: number
   totalEntregues: number
-  porDisciplina: { disciplina: string; media: number }[]
+  percentualFrequencia: number
+  porDisciplina: DisciplinaDesempenho[]
+  evolucaoNotas: { avaliacaoNome: string; nota: number; disciplina: string }[]
+  conquistas: Conquista[]
 }
