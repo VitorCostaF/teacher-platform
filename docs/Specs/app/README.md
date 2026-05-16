@@ -89,7 +89,7 @@ specs/
 
 ## Comportamentos Globais
 
-Ver [`07-comportamentos-globais.md`](./07-comportamentos-globais.md) para especificação completa de:
+Ver [`07-comportamentos-globais.md`](07-comportamentos-globais.md) para especificação completa de:
 - Sessão expirada
 - Perda de conexão / modo offline
 - Ações destrutivas (confirmação obrigatória)

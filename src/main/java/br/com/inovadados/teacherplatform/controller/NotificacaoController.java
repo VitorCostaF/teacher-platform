@@ -40,6 +40,7 @@ public class NotificacaoController {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new IllegalStateException("Usuário não encontrado"));
 
+        // TODO extrair um builder para subscription
         pushSubscriptionRepository.findByEndpoint(request.endpoint()).ifPresentOrElse(
                 existing -> {
                     existing.setP256dh(request.p256dh());

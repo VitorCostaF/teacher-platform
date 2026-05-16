@@ -30,6 +30,7 @@ public class IaController {
     private final IaService iaService;
     private final UsuarioRepository usuarioRepository;
 
+    // TODO Extrair para um service
     private Usuario getUsuarioAutenticado(Authentication auth) {
         return usuarioRepository.findByEmail(auth.getName())
                 .orElseThrow(() -> new UnauthorizedException("Usuário autenticado não encontrado"));

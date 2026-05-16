@@ -23,6 +23,7 @@ public class UploadController {
 
     private final DocumentoParserService documentoParserService;
 
+    // TODO avaliar para extrair metodos
     @PostMapping("/conteudo")
     public ResponseEntity<Map<String, Object>> uploadConteudo(
             @RequestParam("file") MultipartFile file) throws IOException {

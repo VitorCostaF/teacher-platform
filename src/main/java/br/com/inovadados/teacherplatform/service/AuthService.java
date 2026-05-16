@@ -46,28 +46,11 @@ public class AuthService {
 
     @Transactional
     public AuthLoginResult login(LoginRequest request, HttpServletRequest httpRequest) {
-        Optional<Usuario> opt = usuarioRepository.findByEmail(request.email());
-        if (opt.isEmpty()) {
-            throw new BadCredentialsException("Credenciais inválidas");
-        }
+        Usuario usuario = getUsuario(request);
 
-        Usuario usuario = opt.get();
+        checkRateLimit(request);
 
-        Optional<Instant> lockExpiry = rateLimitService.getLockExpiry(request.email());
-        if (lockExpiry.isPresent()) {
-            throw new AccountLockedException(lockExpiry.get());
-        }
-
-        if (!passwordEncoder.matches(request.senha(), usuario.getSenhaHash())) {
-            long attempts = rateLimitService.incrementAttempts(request.email());
-            if (attempts >= maxAttempts) {
-                rateLimitService.lockAccount(request.email());
-                Instant expiry = rateLimitService.getLockExpiry(request.email())
-                    .orElse(Instant.now().plusSeconds(15 * 60L));
-                throw new AccountLockedException(expiry);
-            }
-            throw new BadCredentialsException("Credenciais inválidas");
-        }
+        checkCredentials(request, usuario);
 
         if (!usuario.getAtivo()) {
             throw new AccountInactiveException();
@@ -76,13 +59,8 @@ public class AuthService {
         String accessToken = jwtService.generateAccessToken(usuario);
         String refreshToken = jwtService.generateRefreshToken(usuario);
 
-        Sessao sessao = new Sessao();
-        sessao.setUsuario(usuario);
-        sessao.setRefreshTokenHash(hashSha256(refreshToken));
-        sessao.setUserAgent(httpRequest.getHeader("User-Agent"));
-        sessao.setIp(getClientIp(httpRequest));
-        sessao.setCriadoEm(OffsetDateTime.now(ZoneOffset.UTC));
-        sessao.setExpiraEm(OffsetDateTime.now(ZoneOffset.UTC).plusSeconds(jwtService.getRefreshTokenExpiration()));
+        Sessao sessao = buildSession(httpRequest, usuario, refreshToken);
+
         sessaoRepository.save(sessao);
 
         rateLimitService.clearAttempts(request.email());
@@ -97,6 +75,46 @@ public class AuthService {
         );
 
         return new AuthLoginResult(loginResponse, refreshToken);
+    }
+
+    private Sessao buildSession(HttpServletRequest httpRequest, Usuario usuario, String refreshToken) {
+        Sessao sessao = new Sessao();
+        sessao.setUsuario(usuario);
+        sessao.setRefreshTokenHash(hashSha256(refreshToken));
+        sessao.setUserAgent(httpRequest.getHeader("User-Agent"));
+        sessao.setIp(getClientIp(httpRequest));
+        sessao.setCriadoEm(OffsetDateTime.now(ZoneOffset.UTC));
+        sessao.setExpiraEm(OffsetDateTime.now(ZoneOffset.UTC).plusSeconds(jwtService.getRefreshTokenExpiration()));
+        return sessao;
+    }
+
+    private void checkCredentials(LoginRequest request, Usuario usuario) {
+        if (!passwordEncoder.matches(request.senha(), usuario.getSenhaHash())) {
+            long attempts = rateLimitService.incrementAttempts(request.email());
+            if (attempts >= maxAttempts) {
+                rateLimitService.lockAccount(request.email());
+                Instant expiry = rateLimitService.getLockExpiry(request.email())
+                    .orElse(Instant.now().plusSeconds(15 * 60L));
+                throw new AccountLockedException(expiry);
+            }
+            throw new BadCredentialsException("Credenciais inválidas");
+        }
+    }
+
+    private void checkRateLimit(LoginRequest request) {
+        Optional<Instant> lockExpiry = rateLimitService.getLockExpiry(request.email());
+        if (lockExpiry.isPresent()) {
+            throw new AccountLockedException(lockExpiry.get());
+        }
+    }
+
+    private Usuario getUsuario(LoginRequest request) {
+        Optional<Usuario> opt = usuarioRepository.findByEmail(request.email());
+        if (opt.isEmpty()) {
+            throw new BadCredentialsException("Credenciais inválidas");
+        }
+
+        return opt.get();
     }
 
     private static final int MAX_SESSOES_ATIVAS = 5;
@@ -120,6 +138,7 @@ public class AuthService {
         List<Sessao> sessoesAtivas = sessaoRepository
             .findByUsuarioIdAndRevogadoEmIsNullOrderByCriadoEmAsc(usuario.getId());
 
+        // TODO create method checkMaxSessions
         if (sessoesAtivas.size() >= MAX_SESSOES_ATIVAS) {
             Sessao maisAntiga = sessoesAtivas.get(0);
             if (!maisAntiga.getId().equals(sessaoAtual.getId())) {
@@ -134,6 +153,7 @@ public class AuthService {
         String novoAccessToken = jwtService.generateAccessToken(usuario);
         String novoRefreshToken = jwtService.generateRefreshToken(usuario);
 
+        // TODO usar build session
         Sessao novaSessao = new Sessao();
         novaSessao.setUsuario(usuario);
         novaSessao.setRefreshTokenHash(hashSha256(novoRefreshToken));
@@ -164,6 +184,7 @@ public class AuthService {
         }
     }
 
+    // TODO Extract to hash utils
     private String hashSha256(String value) {
         try {
             byte[] hash = MessageDigest.getInstance("SHA-256")

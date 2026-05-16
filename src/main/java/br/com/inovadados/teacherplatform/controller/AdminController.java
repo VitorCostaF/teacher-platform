@@ -45,11 +45,13 @@ public class AdminController {
     private final UsuarioRepository usuarioRepository;
 
     @GetMapping("/dashboard")
+    @PreAuthorize("hasRole('ADMIN')")
     public AdminDashboardResponse getDashboard(Authentication authentication) {
         return adminService.getDashboard(getEscolaId(authentication));
     }
 
     @GetMapping("/professores")
+    @PreAuthorize("hasRole('ADMIN')")
     public Page<UsuarioResponse> listarProfessores(
             @RequestParam(required = false) String nome,
             @RequestParam(required = false) Boolean ativo,
@@ -130,6 +132,7 @@ public class AdminController {
     }
 
     @GetMapping("/escola/configuracoes")
+    @PreAuthorize("hasRole('ADMIN')")
     public Escola getConfiguracoes(Authentication authentication) {
         return adminService.getConfiguracoes(getEscolaId(authentication));
     }

@@ -30,6 +30,7 @@ public class TurmaController {
     private final TurmaService turmaService;
     private final UsuarioRepository usuarioRepository;
 
+    // TODO extrair serviço
     private Usuario getUsuarioAutenticado(Authentication auth) {
         return usuarioRepository.findByEmail(auth.getName())
                 .orElseThrow(() -> new UnauthorizedException("Usuário autenticado não encontrado"));

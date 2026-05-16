@@ -28,6 +28,7 @@ public class FrequenciaController {
     private final FrequenciaService frequenciaService;
     private final UsuarioRepository usuarioRepository;
 
+    // TODO extrair para um service
     private Usuario getUsuarioAutenticado(Authentication auth) {
         return usuarioRepository.findByEmail(auth.getName())
                 .orElseThrow(() -> new UnauthorizedException("Usuário autenticado não encontrado"));
