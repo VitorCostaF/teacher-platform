@@ -1,5 +1,7 @@
 package br.com.inovadados.teacherplatform.service;
 
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -24,7 +26,7 @@ public class DocumentoParserService {
     );
 
     public String extrairTextoPDF(InputStream input) throws IOException {
-        try (PDDocument doc = PDDocument.load(input)) {
+        try (PDDocument doc = Loader.loadPDF(new RandomAccessReadBuffer(input))) {
             PDFTextStripper stripper = new PDFTextStripper();
             return stripper.getText(doc).trim();
         }

@@ -38,7 +38,13 @@
       "PowerShell(New-Item *)",
       "Bash(Get-ChildItem -Path \"F:\\\\Docs\\\\Profissional\\\\Inova\\\\Desenvolvimento\\\\Projetos\\\\Teacher Platform\\\\backend\" -Directory)",
       "Bash(Select-Object Name)",
-      "Bash(cd \"F:\\\\\\\\Docs\\\\\\\\Profissional\\\\\\\\Inova\\\\\\\\Desenvolvimento\\\\\\\\Projetos\\\\\\\\Teacher Platform\\\\\\\\backend\")"
+      "Bash(cd \"F:\\\\\\\\Docs\\\\\\\\Profissional\\\\\\\\Inova\\\\\\\\Desenvolvimento\\\\\\\\Projetos\\\\\\\\Teacher Platform\\\\\\\\backend\")",
+      "Bash(javac -version)",
+      "Bash(where java *)",
+      "Bash(dir \"C:\\\\Program Files\\\\Java\")",
+      "Bash(dir \"C:\\\\Program Files\\\\Microsoft\")",
+      "Bash(findstr \"jdk\\\\|java\\\\|Java\")",
+      "PowerShell(mvn compile *)"
     ]
   }
 }

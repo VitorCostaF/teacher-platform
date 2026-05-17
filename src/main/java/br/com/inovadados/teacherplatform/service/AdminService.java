@@ -10,7 +10,6 @@ import br.com.inovadados.teacherplatform.domain.entity.Turma;
 import br.com.inovadados.teacherplatform.domain.entity.Usuario;
 import br.com.inovadados.teacherplatform.domain.entity.VinculoResponsavel;
 import br.com.inovadados.teacherplatform.domain.enums.PerfilEnum;
-import br.com.inovadados.teacherplatform.domain.enums.StatusEntregaEnum;
 import br.com.inovadados.teacherplatform.domain.enums.StatusFrequenciaEnum;
 import br.com.inovadados.teacherplatform.domain.enums.TipoTokenEnum;
 import br.com.inovadados.teacherplatform.dto.request.AlterarStatusProfessorRequest;

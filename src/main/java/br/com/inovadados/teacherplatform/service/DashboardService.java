@@ -3,6 +3,7 @@ package br.com.inovadados.teacherplatform.service;
 import br.com.inovadados.teacherplatform.domain.entity.Avaliacao;
 import br.com.inovadados.teacherplatform.domain.entity.Entrega;
 import br.com.inovadados.teacherplatform.domain.entity.Matricula;
+import br.com.inovadados.teacherplatform.domain.entity.RegistroFrequencia;
 import br.com.inovadados.teacherplatform.domain.entity.Turma;
 import br.com.inovadados.teacherplatform.domain.entity.Usuario;
 import br.com.inovadados.teacherplatform.domain.enums.PerfilEnum;

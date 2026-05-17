@@ -115,17 +115,17 @@
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>kernel</artifactId>
-			<version>9.1.0</version>
+			<version>7.2.6</version>
 		</dependency>
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>layout</artifactId>
-			<version>9.1.0</version>
+			<version>7.2.6</version>
 		</dependency>
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>io</artifactId>
-			<version>9.1.0</version>
+			<version>7.2.6</version>
 		</dependency>
 
 		<!-- Parsing CSV/XLSX para importação de alunos -->
