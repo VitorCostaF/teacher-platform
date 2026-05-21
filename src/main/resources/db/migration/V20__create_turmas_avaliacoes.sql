@@ -1,8 +1,8 @@
 CREATE TABLE turmas_avaliacoes (
-    id           BIGSERIAL PRIMARY KEY,
+    id           BIGINT AUTO_INCREMENT PRIMARY KEY,
     avaliacao_id BIGINT NOT NULL REFERENCES avaliacoes(id),
     turma_id     BIGINT NOT NULL REFERENCES turmas(id),
-    publicado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    publicado_em DATETIME NOT NULL DEFAULT NOW(),
     UNIQUE (avaliacao_id, turma_id)
 );
 

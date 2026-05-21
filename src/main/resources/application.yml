@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: Teacher-Platform
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        jdbc:
+          time_zone: UTC
+
+  flyway:
+    enabled: false
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  main:
+    web-application-type: servlet
+
+app:
+  jwt:
+    secret: dGVzdC1zZWNyZXQta2V5LWZvci1kZXZlbG9wbWVudC1vbmx5LW5vdC1mb3ItcHJvZA==
+    access-token-expiration: 3600
+    refresh-token-expiration: 2592000
+
+  auth:
+    max-attempts: 5
+    lockout-minutes: 15
+    rate-limit-per-minute: 10
+
+  ia:
+    api-key: ${ANTHROPIC_API_KEY:changeme}
+    api-url: https://api.anthropic.com/v1/messages
+    model: claude-sonnet-4-6
+    max-tokens: 4096
+    rate-limit-por-hora: 20
+
+  push:
+    vapid-public-key: ${VAPID_PUBLIC_KEY:BEl62iUYgUivxIkv69yViEuiBIa-Ib9-SkvMeAtA3LFgDkBNE88q1W8tJ2GjsfO3C57Q5VCJlQGNmCJLjJTFuA}
+    vapid-private-key: ${VAPID_PRIVATE_KEY:changeme-generate-real-key}
+    vapid-subject: mailto:admin@teacherplatform.com
+
+  storage:
+    pdf-base-url: http://localhost:8080/relatorios
+    pdf-dir: ./uploads/relatorios
+
+  relatorio:
+    url-validade-horas: 24
+

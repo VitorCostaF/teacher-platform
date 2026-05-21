@@ -1,12 +1,10 @@
-CREATE TYPE tipo_questao_enum AS ENUM ('multipla_escolha','verdadeiro_falso','dissertativa','upload_arquivo');
-
 CREATE TABLE questoes (
-  id BIGSERIAL PRIMARY KEY,
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
   avaliacao_id BIGINT NOT NULL REFERENCES avaliacoes(id),
   ordem INTEGER NOT NULL,
-  tipo tipo_questao_enum NOT NULL,
+  tipo ENUM('multipla_escolha','verdadeiro_falso','dissertativa','upload_arquivo') NOT NULL,
   enunciado TEXT NOT NULL,
-  alternativas JSONB,
+  alternativas JSON,
   gabarito_dissertativo TEXT,
   dificuldade VARCHAR(20),
   topico VARCHAR(150),

@@ -44,7 +44,9 @@
       "Bash(dir \"C:\\\\Program Files\\\\Java\")",
       "Bash(dir \"C:\\\\Program Files\\\\Microsoft\")",
       "Bash(findstr \"jdk\\\\|java\\\\|Java\")",
-      "PowerShell(mvn compile *)"
+      "PowerShell(mvn compile *)",
+      "Bash(Remove-Item *)",
+      "mcp__ide__getDiagnostics"
     ]
   }
 }

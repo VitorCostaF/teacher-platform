@@ -1,5 +1,5 @@
 CREATE TABLE respostas (
-  id BIGSERIAL PRIMARY KEY,
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
   entrega_id BIGINT NOT NULL REFERENCES entregas(id),
   questao_id BIGINT NOT NULL REFERENCES questoes(id),
   resposta_indice INTEGER,
